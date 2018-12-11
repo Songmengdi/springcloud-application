@@ -1,22 +1,25 @@
 spring:
+  profiles:
+    active: dev
+---
+server: 
+  port: 8201
+spring:   
+  profiles: dev #开发环境
   application:
-    name: gateway-9527
-server:
-  port: 9527
-  
+    name: microservicecloud-config-client
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
-      
-# 显示ip
-  instance:
-    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
-    prefer-ip-address: true
-    
-zuul:
-  routes:
-    apidept:
-      path: /deptapi/**
-      service-id: dept-provider
-      
+      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8761/eureka
+---
+server: 
+  port: 8202
+spring:   
+  profiles: test #开发环境
+  application:
+    name: microservicecloud-config-client
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8761/eureka
